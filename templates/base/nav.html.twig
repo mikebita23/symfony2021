@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        {% for i in 1..5 %}  
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                {% if i == 1 %}
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                {% elseif i == 2 and app.user %}
+                    {% for role in app.user.roles %}
+                        {% if role =='ROLE_ADMIN' %}
+                            <a class="nav-link active" aria-current="page" href="/user">Utilisateur</a>
+                        {% endif %}
+                    {% endfor %}
+                {% elseif i == 3 and app.user%}
+                    {% for role in app.user.roles %}
+                        {% if role =='ROLE_ADMIN' %}
+                            <a class="nav-link active" aria-current="page" href="/topic">Topic(Admin)</a>
+                        {% else %}
+                            <a class="nav-link active" aria-current="page" href="/topic/create">Topic(Créer)</a>
+                        {% endif %}
+                    {% endfor %}
+                {% elseif i == 4 and app.user%}
+                    {% for role in app.user.roles %}
+                        {% if role =='ROLE_ADMIN' %}
+                            <a class="nav-link active" aria-current="page" href="/message">Message</a>
+                        {% endif %}
+                    {% endfor %}
+                {% elseif i == 5 %}
+                    {% if app.user %}
+                        {# Code ici si utilisateur connecter #}
+                        {# On affichera le nom d utilisateur si iil est connécte#}
+                        {{ app.user.username }} | <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    {% else %}
+                        {# Code ici si utilisateur non connecter #}
+                        <a class="nav-link active" aria-current="page" href="/login">Se connecter</a>                  
+                    {% endif %}                   
+                {% endif %}
+                </li>
+            </ul>
+        {% endfor %}
+    </div>
+  </div>
+</nav>

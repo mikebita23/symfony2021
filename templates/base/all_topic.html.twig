@@ -1,0 +1,24 @@
+{% for topic in topics %}
+
+    {% if topic.isPrivate == 1 and app.user %}
+        {# Code ici si le sujet de discussion est privée #}
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Discussion Privée || {{topic.title}}</h5>
+            <p class="card-text">Créer par : {{topic.author.firstname}} , le {{topic.creationDate |date('d-m-Y')}}</p>
+            <a href="{{ path('voir_topic', {id: topic.id}) }}" class="btn btn-primary">Voir</a>
+          </div>
+        </div>
+    {% elseif topic.isPrivate != 1 %}
+        {# Code ici si le sujet de discussion n'est pas privée #}
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="..." alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{topic.title}}</h5>
+            <p class="card-text">Créer par : {{topic.author.firstname}} , le {{topic.creationDate |date('d-m-Y')}}</p>
+            <a href="{{ path('voir_topic', {id: topic.id}) }}" class="btn btn-primary">Voir</a>
+          </div>
+        </div>              
+    {% endif %}
+{% endfor %}
